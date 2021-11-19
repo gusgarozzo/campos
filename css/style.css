@@ -1,0 +1,46 @@
+/*--------------------- BBM_PROJECT ---------------------*/
+html {
+    font-size: 1rem;
+    scroll-behavior: smooth;
+}
+
+    div.scrollItem {
+        margin: 4px, 4px;
+        padding: 4px;
+        background-color: transparent;
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+    }
+
+    .jumbox {
+    width: 70px;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center !important;
+    
+    }
+
+    .anchor {
+    text-decoration: none;
+    }
+
+    .fixed {
+    position:fixed; 
+    top:0;
+    }
+
+    .sticky-col {
+    position: -webkit-sticky;
+    position: sticky;
+    background-color: transparent;
+    }
+
+    @media print {
+        * {
+            -webkit-print-color-adjust: exact !important; /*Chrome, Safari */
+            color-adjust: exact !important;  /*Firefox*/
+        }
+    }
