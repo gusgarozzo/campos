@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-11-19 14:40:25
+/* Smarty version 3.1.39, created on 2021-11-19 17:09:40
   from '/Applications/MAMP/htdocs/camposystem/camposystem_project/templates/header.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_6197e189312e97_58948228',
+  'unifunc' => 'content_61980484555cb0_02919050',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '98104b6ba13909a769fcb40e2adce343cd241e25' => 
     array (
       0 => '/Applications/MAMP/htdocs/camposystem/camposystem_project/templates/header.tpl',
-      1 => 1637343621,
+      1 => 1637352577,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6197e189312e97_58948228 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61980484555cb0_02919050 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -45,7 +45,7 @@ function content_6197e189312e97_58948228 (Smarty_Internal_Template $_smarty_tpl)
 
 <body class="header">
     <header>
-        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
                 
                 <a class="navbar-brand" href="dashboard">

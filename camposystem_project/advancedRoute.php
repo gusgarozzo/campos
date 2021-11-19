@@ -1,6 +1,6 @@
 <?php
     require_once 'app/controller/controller.php';
-    require_once 'app/controller/loginController.php';
+    //require_once 'app/controller/loginController.php';
     require_once 'RouterClass.php';
 
     define("BASE_URL", 'http://'.$_SERVER["SERVER_NAME"].':'.$_SERVER["SERVER_PORT"].dirname($_SERVER["PHP_SELF"]).'/');
@@ -11,11 +11,11 @@
 
     /*----------------URLS----------------*/
     
-    /*
+    
     //DASHBOARD
     $r->addRoute("", "GET", "controller", "dashboardController");
     $r->addRoute("dashboard", "GET", "controller", "dashboardController");
-
+/*
     //BOOKINGS
     $r->addRoute("checkin", "GET", "controller", "checkInController");
     $r->addRoute("checkout", "GET", "controller", "checkOutController");
