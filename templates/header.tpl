@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/bootstrap.min.css?1.0">
     <!-- <link rel="shortcut icon" href="./img/favicon2.png"> -->
+    <link href="/your-path-to-fontawesome/css/all.css" rel="stylesheet">
     <script src="./js/script.js"></script>
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">

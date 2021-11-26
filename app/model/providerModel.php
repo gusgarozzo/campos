@@ -57,31 +57,31 @@ class providerModel {
         return true;
     }
 
-    function setProvider($category_id, $name, $email, $phone, $address, $city, $comment){
-        $query = $this->db->prepare('UPDATE providers SET provider_name=?, email=?, phone=?, provider_address=?, city=?, comment=? 
+    function setProvider($category_id, $name, $email, $phone, $address, $city, $comment, $id_provider){
+        $query = $this->db->prepare('UPDATE providers SET id_cat_provider=?, provider_name=?, email=?, phone=?, provider_address=?, city=?, comment=? 
             WHERE id_provider=?');
-        $query->execute(array($category_id, $name, $email, $phone, $address, $city, $comment));
+        $query->execute(array($category_id, $name, $email, $phone, $address, $city, $comment, $id_provider));
         return true;
     }
 
-    function setProviderPayment($payment_method_id, $provider_id, $user_id, $date, $total, $cancel, $provider_bill){
+    function setProviderPayment($payment_method_id, $provider_id, $user_id, $date, $total, $cancel, $provider_bill, $id_provider_payment){
         $query = $this->db->prepare('UPDATE provider_payment SET id_provider_method=?, id_provider=?, id_user=?, date=?,
                 total=?, cancel=?, provider_bill=? WHERE id_provider_payment=?');
-        $query->execute(array($payment_method_id, $provider_id, $user_id, $date, $total, $cancel, $provider_bill));
+        $query->execute(array($payment_method_id, $provider_id, $user_id, $date, $total, $cancel, $provider_bill, $id_provider_payment));
         return true;
     }
 
-    function setProviderBill($payment_method_id, $provider_id, $user_id, $date, $status, $comment){
+    function setProviderBill($payment_method_id, $provider_id, $user_id, $date, $status, $comment, $id_provider_bill){
         $query = $this->db->prepare('UPDATE provider_bill SET id_provider_method=?, id_provider=?, id_user=?, date=?, payment_status=?, comment=? 
             WHERE id_provider_bill=?');
-        $query->execute(array($payment_method_id, $provider_id, $user_id, $date, $status, $comment));
+        $query->execute(array($payment_method_id, $provider_id, $user_id, $date, $status, $comment, $id_provider_bill));
         return true;
     }
 
-    function setProviderProduct($provider_category_product_id, $provider_id, $product_name, $price, $stock, $min_stock){
+    function setProviderProduct($provider_category_product_id, $provider_id, $product_name, $price, $stock, $min_stock, $id_provider_category_product_id){
         $query = $this->db->prepare('UPDATE provider_product SET id_provider_category_product=?, id_provider=?, product_name=?, price=?, 
             stock=?, min_stock=? WHERE id_provider_category_product_id=?');
-        $query->execute(array($provider_category_product_id, $provider_id, $product_name, $price, $stock, $min_stock));
+        $query->execute(array($provider_category_product_id, $provider_id, $product_name, $price, $stock, $min_stock, $id_provider_category_product_id));
         return true;
     }
 
