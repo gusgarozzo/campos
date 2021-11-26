@@ -14,6 +14,13 @@
     //DASHBOARD
     $r->addRoute("", "GET", "controller", "dashboardController");
     $r->addRoute("dashboard", "GET", "controller", "dashboardController");
+
+    //ADMIN
+    $r->addRoute("administracion", "GET", "controller", "admController");
+    $r->addRoute("admUsers", "GET", "controller", "usersController");
+    $r->addRoute("admProviders", "GET", "controller", "providersController");
+    $r->addRoute("admCustomers", "GET", "controller", "customerController");
+    $r->addRoute("admSalesChannel", "GET", "controller", "salesChannelController");
 /*
     //BOOKINGS
     $r->addRoute("checkin", "GET", "controller", "checkInController");
@@ -48,16 +55,6 @@
     $r->addRoute("editarComentarioHab", "POST", "controller", "editRoomComment");
     $r->addRoute("editandoComentarioHab", "POST", "controller", "editingRoomComment");
     $r->addRoute("eliminarComentarioHab", "POST", "controller", "deleteRoomComment");
-    
-    //ADMIN
-    $r->addRoute("administracion", "GET", "controller", "admController");
-    $r->addRoute("adminUsuarios", "GET", "controller", "adminUsers");
-    $r->addRoute("adminHuespedes", "GET", "controller", "adminGuests");
-    $r->addRoute("adminHabitaciones", "GET", "controller", "adminRooms");
-    $r->addRoute("adminCanales", "GET", "controller", "adminSaleChannels");
-    $r->addRoute("promedioOcupacion", "POST", "controller", "avgOccupancy");
-    $r->addRoute("listaEmailsHuespedes", "GET", "controller", "adminGuestsEmailList");
-    $r->addRoute("reporteFacturacion", "POST", "controller", "billingReport");
     
     //MESSAGES
     $r->addRoute("seen", "GET", "controller", "setSeen");

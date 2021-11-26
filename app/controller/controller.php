@@ -44,5 +44,14 @@ class Controller {
         $this->view->renderDashboard($date);
     }
 
+
+    function admController(){
+        $this->view->renderAdmPanel();
+    }
+
+    function providersController(){
+        $action = $this->providerModel->getProviders();
+        $this->view->renderProvidersPanel($action);
+    }
     
 }
