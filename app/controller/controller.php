@@ -3,6 +3,7 @@
 //require_once './app/controller/controller.php';
 require_once './app/model/providerModel.php';
 require_once './app/model/customerModel.php';
+require_once './app/model/salesModel.php';
 require_once './app/view/view.php';
 
 date_default_timezone_set('America/Argentina/Buenos_Aires');
@@ -10,13 +11,15 @@ date_default_timezone_set('America/Argentina/Buenos_Aires');
 class Controller {
     private $providerModel;
     private $customerModel;
-    //private $userModel;
+    private $salesModel;
+    private $userModel;
     //private $helper;
     private $view;
 
     public function __construct() {
         $this->providerModel = new providerModel();
         $this->customerModel = new customerModel();
+        $this->customerModel = new salesModel();
         //$this->userModel = new UserModel();
         //$this->helper = new AuthHelper();
         $this->view = new View();
