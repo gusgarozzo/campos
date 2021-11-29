@@ -30,4 +30,33 @@ class View {
         $this->smarty->assign('providers', $providers);
         $this->smarty->display('./templates/admProviders.tpl');
     }
+
+    function renderCustomersPanel($customers){
+        $this->smarty->assign('title', $this->title);
+        $this->smarty->assign('customers', $customers);
+        $this->smarty->display('./templates/admCustomers.tpl');
+    }
+
+    function renderUsersPanel($users){
+        $this->smarty->assign('title', $this->title);
+        $this->smarty->assign('users', $users);
+        $this->smarty->display('./templates/adminUsers.tpl');
+    }
+
+    function renderEmailList($customers){
+        $this->smarty->assign('title', $this->title);
+        $this->smarty->assign('customers', $customers);
+        $this->smarty->display('./templates/customerEmailList.tpl');
+    }
+
+    function renderSellers($sellers){
+        $this->smarty->assign('title', $this->title);
+        $this->smarty->assign('sellers', $sellers);
+        $this->smarty->display('./templates/admSellers.tpl');
+    }
+
+    function renderSellersPanel(){
+        $this->smarty->assign('title', $this->title);
+        $this->smarty->display('./templates/addSeller.tpl');
+    }
 }

@@ -1,13 +1,13 @@
 {include file="header.tpl"}
 <section class="p-4 text-center bg-light">
-    <h2 class="mb-3">Buscar huésped</h2>
+    <h2 class="mb-3">Buscar:</h2>
     <br>
     <container class="text-center">
       <div class="row">
         <div class="col">
 
 <!--add user menu-->   
-{include file="adminGuestFilter.tpl"}
+{include file="adminFilterResult.tpl"}
 <!--end add user menu-->
         </div>
       </div>

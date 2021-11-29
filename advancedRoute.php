@@ -20,7 +20,11 @@
     $r->addRoute("admUsers", "GET", "controller", "usersController");
     $r->addRoute("admProviders", "GET", "controller", "providersController");
     $r->addRoute("admCustomers", "GET", "controller", "customerController");
+    $r->addRoute("admSellers", "GET", "controller", "sellersController");
     $r->addRoute("admSalesChannel", "GET", "controller", "salesChannelController");
+    $r->addRoute("emailCustomerList", "GET", "controller", "emailListController");
+    $r->addRoute("addSeller", "GET", "controller", "sellersPanel");
+    $r->addRoute("newSeller", "POST", "controller", "newSellerController");
 /*
     //BOOKINGS
     $r->addRoute("checkin", "GET", "controller", "checkInController");
