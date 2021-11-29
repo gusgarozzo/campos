@@ -4,6 +4,7 @@
 require_once './app/model/providerModel.php';
 require_once './app/model/customerModel.php';
 require_once './app/model/salesModel.php';
+require_once './app/model/userModel.php';
 require_once './app/view/view.php';
 
 date_default_timezone_set('America/Argentina/Buenos_Aires');
@@ -19,8 +20,8 @@ class Controller {
     public function __construct() {
         $this->providerModel = new providerModel();
         $this->customerModel = new customerModel();
-        $this->customerModel = new salesModel();
-        //$this->userModel = new UserModel();
+        $this->salesModel = new salesModel();
+        $this->userModel = new userModel();
         //$this->helper = new AuthHelper();
         $this->view = new View();
     }
@@ -53,5 +54,49 @@ class Controller {
         $action = $this->providerModel->getProviders();
         $this->view->renderProvidersPanel($action);
     }
+
+    function customerController(){
+        $action = $this->customerModel->getCustomers();
+        $this->view->renderCustomersPanel($action); 
+    }
+
+    function usersController(){
+        $action = $this->userModel->getUsers();
+        $this->view->renderUsersPanel($action);
+    }
+
+    function emailListController(){
+        $action = $this->customerModel->getEmails();
+        $this->view->renderEmailList($action);
+    }
     
+    function sellersController(){
+        $role = 's'; // "s" from "seller"
+        $action = $this->userModel->getUsersByRole($role);
+        $this->view->renderSellers($action);
+    }
+
+    function sellersPanel(){
+        $this->view->renderSellersPanel();
+    }
+
+    function newSellerController(){
+        if(isset($_POST['input-name'])&&($_POST['input-lastname'])&&($_POST['input-email'])&& ($_POST['input-password'])){
+            $name = $_POST['input-name'];
+            $lastname = $_POST['input-lastname'];
+            $email = $_POST['input-email'];
+            $password = $_POST['input-password'];
+            $status = 1;
+            $role = 's';
+
+            $action = $this->userModel->addUser($name, $lastname, $email, $password, $status, $role);
+            if($action > 0){
+                header("Location:".BASE_URL."admSellers");
+            }else{
+                var_dump("error");die();
+            }
+        }else{
+            var_dump("no entra");die();
+        }
+    }
 }

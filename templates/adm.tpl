@@ -14,7 +14,7 @@
     <a href="admUsers" class="btn btn-outline-primary" role="button">Administrar usuarios</a>
     <a href="admProviders" class="btn btn-outline-primary" role="button">Administrar proveedores</a>
     <a href="admCustomers" class="btn btn-outline-primary" role="button">Administrar clientes</a>
-    <a href="admSalesChannel" class="btn btn-outline-primary" role="button">Administrar canales de venta</a>
+    <a href="admSellers" class="btn btn-outline-primary" role="button">Administrar vendedores</a>
     </div>
 </container>
 
@@ -25,9 +25,9 @@
     <div class="d-grid gap-2">
         <div class="alert alert-dismissible alert-primary">
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            Podés generar una lista de emails de proveedores y/o clientes para realizar acciones de marketing, como ofrecer promociones o fidelizar antiguos clientes a traves de correo electrónico
+            Podés generar una lista de emails de clientes para realizar acciones de marketing, como ofrecer promociones o fidelizar antiguos clientes a traves de correo electrónico
         </div>
-        <a href="listaEmailsHuespedes" class="btn btn-outline-primary" role="button">Lista de emails</a>
+        <a href="emailCustomerList" class="btn btn-outline-primary" role="button">Lista de emails</a>
         <!--
         <p>Carta de bienvenida</p>
         <p>Resumen de cuenta</p>

@@ -72,6 +72,12 @@ class customerModel {
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
 
+    function getEmails(){
+        $query = $this->db->prepare('SELECT email FROM customer c ASC');
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_OBJ);
+    }
+
     // SELECTS BY ID
     function getCustomerByID($id){
         $query = $this->db->prepare('SELECT * FROM customer c WHERE id_customer=?');

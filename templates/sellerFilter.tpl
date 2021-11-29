@@ -2,14 +2,14 @@
     <div class="accordion-item">
         <h2 class="accordion-header" id="headingOne">
             <button class="accordion-button collapsed btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-            <strong>Buscar proveedores</strong>
+            <strong>Buscar vendedores</strong>
             </button>
         </h2>
         <div id="collapseOne" class="accordion-collapse collapse text-center" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
             <div class="accordion-body">
 
                 <container class="text-center bookingsSlider">
-                <form action="providerFilter" method="POST">
+                <form action="sellerFilter" method="POST">
                         <div class="row">
                             <div class="col">
                                 <label class="col-form-label mt-4" for="inputDefault">Nombre</label>

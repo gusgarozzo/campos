@@ -13,7 +13,7 @@ class salesModel {
     function addSale($id_customer, $id_user, $id_onsale_product, $total, $date, $status,
         $cancel, $comment, $discount){
             $query = $this->db->prepare('INSERT INTO sale_bill(`id_customer`, `id_user`, `id_onsale_product`,
-                `total`, `date`, `status`, `cancel`, `comment`, `discount`,) VALUES(?,?,?,?,?,?,?,?,?)');
+                `total`, `date`, `status`, `cancel`, `comment`, `discount`) VALUES(?,?,?,?,?,?,?,?,?)');
             $query->execute(array($id_customer, $id_user, $id_onsale_product, $total, $date, $status,
                 $cancel, $comment, $discount));
             return true;
