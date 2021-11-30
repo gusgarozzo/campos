@@ -4,14 +4,14 @@
 -- tables
 -- Table: category_provider
 CREATE TABLE category_provider (
-    id_cat_provider int NOT NULL,
+    id_cat_provider int NOT NULL AUTO_INCREMENT,
     name varchar(50) NOT NULL,
     CONSTRAINT category_provider_pk PRIMARY KEY (id_cat_provider)
 );
 
 -- Table: customer
 CREATE TABLE customer (
-    id_customer int NOT NULL,
+    id_customer int NOT NULL AUTO_INCREMENT,
     kind varchar(30) NOT NULL,
     name varchar(50) NOT NULL,
     email varchar(30) NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE customer (
 
 -- Table: customer_account
 CREATE TABLE customer_account (
-    id_customer_account int NOT NULL,
+    id_customer_account int NOT NULL AUTO_INCREMENT,
     id_customer int NOT NULL,
     id_user int NOT NULL,
     id_sale_bill int NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE customer_account (
 
 -- Table: customer_payment
 CREATE TABLE customer_payment (
-    id_customer_payment int NOT NULL,
+    id_customer_payment int NOT NULL AUTO_INCREMENT,
     id_payment_method int NOT NULL,
     id_customer int NOT NULL,
     date date NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE customer_payment (
 
 -- Table: inbox
 CREATE TABLE inbox (
-    id_message int NOT NULL,
+    id_message int NOT NULL AUTO_INCREMENT,
     id_sender int NOT NULL,
     id_recipient int NOT NULL,
     message varchar(500) NOT NULL,
@@ -59,7 +59,7 @@ CREATE TABLE inbox (
 
 -- Table: memo
 CREATE TABLE memo (
-    id_memo int NOT NULL,
+    id_memo int NOT NULL AUTO_INCREMENT,
     id_user int NOT NULL,
     memo varchar(500) NOT NULL,
     done bool NOT NULL,
@@ -69,7 +69,7 @@ CREATE TABLE memo (
 
 -- Table: message
 CREATE TABLE message (
-    id_message int NOT NULL,
+    id_message int NOT NULL AUTO_INCREMENT,
     id_user int NOT NULL,
     message varchar(500) NOT NULL,
     date date NOT NULL,
@@ -78,14 +78,14 @@ CREATE TABLE message (
 
 -- Table: onsale_category_product
 CREATE TABLE onsale_category_product (
-    id_onsale_category_product int NOT NULL,
+    id_onsale_category_product int NOT NULL AUTO_INCREMENT,
     category_name varchar(50) NOT NULL,
     CONSTRAINT onsale_category_product_pk PRIMARY KEY (id_onsale_category_product)
 );
 
 -- Table: onsale_product
 CREATE TABLE onsale_product (
-    id_onsale_product int NOT NULL,
+    id_onsale_product int NOT NULL AUTO_INCREMENT,
     sale_category_product_id int NOT NULL,
     product_name varchar(50) NOT NULL,
     price decimal(8,2) NOT NULL,
@@ -97,7 +97,7 @@ CREATE TABLE onsale_product (
 
 -- Table: payment_method
 CREATE TABLE payment_method (
-    id_payment_method int NOT NULL,
+    id_payment_method int NOT NULL AUTO_INCREMENT,
     payment_method_name varchar(50) NOT NULL,
     status bool NOT NULL,
     comment varchar(50) NULL,
@@ -106,7 +106,7 @@ CREATE TABLE payment_method (
 
 -- Table: provider
 CREATE TABLE provider (
-    id_provider int NOT NULL,
+    id_provider int NOT NULL AUTO_INCREMENT,
     id_cat_provider int NOT NULL,
     name varchar(50) NOT NULL,
     email varchar(30) NOT NULL,
@@ -119,7 +119,7 @@ CREATE TABLE provider (
 
 -- Table: provider_bill
 CREATE TABLE provider_bill (
-    id_provider_bill int NOT NULL,
+    id_provider_bill int NOT NULL AUTO_INCREMENT,
     id_user int NOT NULL,
     id_provider int NOT NULL,
     date date NOT NULL,
@@ -130,14 +130,14 @@ CREATE TABLE provider_bill (
 
 -- Table: provider_category_product
 CREATE TABLE provider_category_product (
-    id_category_product int NOT NULL,
+    id_category_product int NOT NULL AUTO_INCREMENT,
     category_name varchar(50) NOT NULL,
     CONSTRAINT category_product_pk PRIMARY KEY (id_category_product)
 );
 
 -- Table: provider_payment
 CREATE TABLE provider_payment (
-    id_provider_payment int NOT NULL,
+    id_provider_payment int NOT NULL AUTO_INCREMENT,
     id_payment_method int NOT NULL,
     id_provider int NOT NULL,
     id_user int NOT NULL,
@@ -150,7 +150,7 @@ CREATE TABLE provider_payment (
 
 -- Table: provider_product
 CREATE TABLE provider_product (
-    id_provider_product int NOT NULL,
+    id_provider_product int NOT NULL AUTO_INCREMENT,
     id_provider_category_product int NOT NULL,
     id_provider int NOT NULL,
     product_name varchar(50) NOT NULL,
@@ -162,7 +162,7 @@ CREATE TABLE provider_product (
 
 -- Table: sale_bill
 CREATE TABLE sale_bill (
-    id_sale_bill int NOT NULL,
+    id_sale_bill int NOT NULL AUTO_INCREMENT,
     id_customer int NOT NULL,
     id_user int NOT NULL,
     id_onsale_product int NOT NULL,
@@ -177,7 +177,7 @@ CREATE TABLE sale_bill (
 
 -- Table: testing_product
 CREATE TABLE testing_product (
-    id_testing_product int NOT NULL,
+    id_testing_product int NOT NULL AUTO_INCREMENT,
     product_name varchar(50) NOT NULL,
     lote int NOT NULL,
     date date NOT NULL,
@@ -187,7 +187,7 @@ CREATE TABLE testing_product (
 
 -- Table: user
 CREATE TABLE user (
-    id_user int NOT NULL,
+    id_user int NOT NULL AUTO_INCREMENT,
     user_name varchar(30) NOT NULL,
     user_lastname varchar(30) NOT NULL,
     email varchar(30) NOT NULL,

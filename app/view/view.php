@@ -11,6 +11,7 @@ class View {
         $this->smarty = new Smarty();
         $this->dashboardTitle = "CS | Dashboard";
         $this->title = "CampoSystem";
+        $this->errorTitle = "Error";
     }
 
     /*----------------DASHBOARD----------------*/
@@ -18,6 +19,12 @@ class View {
         $this->smarty->assign('title', $this->dashboardTitle);
         $this->smarty->assign('date', $date);
         $this->smarty->display('./templates/dashboard.tpl');
+    }
+
+    function renderError($error) {
+        $this->smarty->assign('title', $this->errorTitle);
+        $this->smarty->assign('error', $error);
+        $this->smarty->display('./templates/error.tpl');
     }
 
     function renderAdmPanel(){
@@ -59,4 +66,6 @@ class View {
         $this->smarty->assign('title', $this->title);
         $this->smarty->display('./templates/addSeller.tpl');
     }
+
+
 }

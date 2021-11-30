@@ -25,6 +25,10 @@
     $r->addRoute("emailCustomerList", "GET", "controller", "emailListController");
     $r->addRoute("addSeller", "GET", "controller", "sellersPanel");
     $r->addRoute("newSeller", "POST", "controller", "newSellerController");
+    $r->addRoute("newUser", "POST", "controller", "newUserController");
+    $r->addRoute("enableUser", "GET", "controller", "enableUser");
+    $r->addRoute("disableUser", "GET", "controller", "disableUser");
+    $r->addRoute("newCustomer", "POST", "controller", "addCustomer");
 /*
     //BOOKINGS
     $r->addRoute("checkin", "GET", "controller", "checkInController");
