@@ -22,9 +22,22 @@ class userModel {
         $query = $this->db->prepare('UPDATE user SET user_name=?, user_lastname=?, email=?, password=?,
             status=?, role=? WHERE id_user=?');
         $query->execute(array($user_name, $user_lastname, $email, $password, $status, $role, $id_user));
-        return true;
+        return $query->rowCount();
     }
 
+    function disableUser($user_id) {
+        $query = $this->db->prepare('UPDATE user SET status=0 WHERE id_user = ?
+            AND status = 1');
+        $query->execute(array($user_id));
+        return $query->rowCount();
+    }
+
+    function enableUser($user_id) {
+        $query = $this->db->prepare('UPDATE user SET status=1 WHERE id_user = ?
+            AND status = 0');
+        $query->execute(array($user_id));
+        return $query->rowCount();
+    }
     // GENERAL SELECTS
     function getUsers(){
         $query = $this->db->prepare('SELECT * FROM user');
@@ -32,10 +45,15 @@ class userModel {
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
 
-    
     // SELECTS BY ID
     function getUsersByID($id_user){
         $query = $this->db->prepare('SELECT * FROM user WHERE id_user=?');
+        $query->execute(array($id_user));
+        return $query->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    function getStatus($id_user){
+        $query = $this->db->prepare('SELECT status FROM user WHERE id_user=?');
         $query->execute(array($id_user));
         return $query->fetchAll(PDO::FETCH_OBJ);
     }

@@ -71,7 +71,7 @@ class Controller {
     }
     
     function sellersController(){
-        $role = 's'; // "s" from "seller"
+        $role = 's'; // from "seller" user
         $action = $this->userModel->getUsersByRole($role);
         $this->view->renderSellers($action);
     }
@@ -87,16 +87,122 @@ class Controller {
             $email = $_POST['input-email'];
             $password = $_POST['input-password'];
             $status = 1;
-            $role = 's';
+            $role = 's'; // from "seller" user
 
             $action = $this->userModel->addUser($name, $lastname, $email, $password, $status, $role);
             if($action > 0){
                 header("Location:".BASE_URL."admSellers");
             }else{
-                var_dump("error");die();
+                $this->view->renderError("Ocurrió un error, revise los datos ingresados y reintente");
             }
         }else{
-            var_dump("no entra");die();
+            $this->view->renderError("Ocurrió un error, revise los datos ingresados y reintente");
+        }
+    }
+
+    function newUserController(){
+        if(isset($_POST['input-name'])&&($_POST['input-lastname'])&&($_POST['input-email'])&& ($_POST['input-password'])){
+            $name = $_POST['input-name'];
+            $lastname = $_POST['input-lastname'];
+            $email = $_POST['input-email'];
+            $password = $_POST['input-password'];
+            $status = 1;
+            $role = 'p'; // from "plant" user
+
+            $action = $this->userModel->addUser($name, $lastname, $email, $password, $status, $role);
+            if($action > 0){
+                header("Location:".BASE_URL."admUsers");
+            }else{
+                $this->view->renderError("Ocurrió un error, revise los datos ingresados y reintente");
+            }
+        }else{
+            $this->view->renderError("Ocurrió un error, revise los datos ingresados y reintente");
+        }
+    }
+
+    function enableUser() {
+        //$this->helper->sessionController();
+        if (isset($_GET['user_id'])) {
+            $user_id = $_GET['user_id'];
+            
+            $userExists = $this->userModel->getUsersByID($user_id);
+
+            if ($userExists != null) {
+                $enabledUser = $this->userModel->enableUser($user_id);
+                //var_dump($enabledUser);die();
+                if ($enabledUser > 0) {
+                    header("Location: " . BASE_URL . "admUsers");
+                    return;
+                } else {
+                    $error = "No se ha podido deshabilitar al usuario, por favor, reintenta";
+                    $this->view->renderError($error);
+                    return;
+                }
+            } else {
+                $error = "El usuario que se intenta deshabilitar no existe";
+                $this->view->renderError($error);
+                return;
+            }
+        } else {
+            $error = "500 – Internal Server Error";
+            $this->view->renderError($error);
+            return;
+        }
+    }
+
+    function disableUser() {
+        //$this->helper->sessionController();
+        if (isset($_GET['user_id'])) {
+            $user_id = $_GET['user_id'];
+            
+            $userExists = $this->userModel->getUsersByID($user_id);
+
+            if ($userExists != null) {
+                $disabledUser = $this->userModel->disableUser($user_id);
+                //var_dump($disabledUser);die();
+                if ($disabledUser > 0) {
+                    header("Location: " . BASE_URL . "admUsers");
+                    return;
+                } else {
+                    $error = "No se ha podido deshabilitar al usuario, por favor, reintenta";
+                    $this->view->renderError($error);
+                    return;
+                }
+            } else {
+                $error = "El usuario que se intenta deshabilitar no existe";
+                $this->view->renderError($error);
+                return;
+            }
+        } else {
+            $error = "500 – Internal Server Error";
+            $this->view->renderError($error);
+            return;
+        }
+    }
+
+    function addCustomer(){
+
+        if(isset($_POST['input-name'])&&($_POST['input-type'])&&($_POST['input-email'])&&($_POST['input-phone'])&&
+            ($_POST['input-address'])&&($_POST['input-city'])){
+                
+            $name = $_POST['input-name'];
+            $type = $_POST['input-type'];
+            $email = $_POST['input-email'];
+            $phone = $_POST['input-phone'];
+            $address = $_POST['input-address'];
+            $city = $_POST['input-city'];
+
+            $status = 1;
+                
+            $action = $this->customerModel->addCustomer($type, $name, $email, $address, $city, $phone, $status);
+            if($action > 0){
+                header("Location:".BASE_URL."admCustomers");
+            }else{
+                $this->view->renderError("Ocurrió un error, revise los datos ingresados y reintente");
+            }
+        }else{
+            $error = "500 – Internal Server Error";
+            $this->view->renderError($error);
         }
     }
 }

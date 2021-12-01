@@ -11,6 +11,14 @@
 <!--end add user menu-->
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+
+<!--add user menu-->   
+{include file="addCustomer.tpl"}
+<!--end add user menu-->
+        </div>
+      </div>
     </container>
     <br>
     <container class="text-center">

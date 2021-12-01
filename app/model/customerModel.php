@@ -10,11 +10,11 @@ class customerModel {
     }
 
     // INSERTS 
-    function addCustomer($kind, $name, $email, $address, $city, $phone, $status){
+    function addCustomer($type, $name, $email, $address, $city, $phone, $status){
         $query = $this->db->prepare('INSERT INTO customer(`kind`, `name`, `email`, `address`, `city`, `phone`, `status`) 
             VALUES(?, ?. ?, ?, ?, ?, ?)');
-        $query->execute(array($kind, $name, $email, $address, $city, $phone, $status));
-        return true;
+        $query->execute(array($type, $name, $email, $address, $city, $phone, $status));
+        return $query->rowCount();
     }
 
     function addCustomerPayment($id_payment_method, $id_customer, $date, $total, $cancel, $card_number){

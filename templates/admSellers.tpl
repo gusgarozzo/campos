@@ -41,9 +41,17 @@
     <tbody>
     {foreach from=$sellers item=seller}
     <tr class="justify-content-center">
-      <th scope="row"><span>{$seller->name}, {$seller->lastname}</span></th>
+      <th scope="row"><span>{$seller->user_name}, {$seller->user_lastname}</span></th>
       <td>{$seller->email}</td>
-      <td>{$seller->status}</td>
+      {if $seller->status eq 1}
+          <td>        
+              <span class="badge bg-success">Habilitado</span>
+          </td>
+          {else}
+          <td>
+              <span class="badge bg-danger">Deshabilitado</span>
+          </td>
+          {/if}
       <td>
           <form action="getSales" method="GET">
               <button type="submit" class="btn btn-outline-primary" name="guest_id" value="{$seller->id_user}">Ver ventas</button>

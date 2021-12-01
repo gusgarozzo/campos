@@ -42,14 +42,14 @@
     <tbody>
     {foreach from=$users item=user}
     <tr class="justify-content-center">
-        <th scope="row"><span>{$user->name}, {$user->lastname}</span></th>
+        <th scope="row"><span>{$user->user_name}, {$user->user_lastname}</span></th>
         <td>{$user->email}</td>
         {if $user->status eq 1}
           <td>        
               <span class="badge bg-success">Habilitado</span>
           </td>
           <td>
-              <form action="deshabilitarUsuario" method="GET">
+              <form action="disableUser" method="GET">
                   <button type="submit" class="btn btn-outline-primary" name="user_id" value={$user->id_user}>Deshabilitar</button>
               </form>
           </td>
@@ -58,7 +58,7 @@
               <span class="badge bg-danger">Deshabilitado</span>
           </td>
           <td>
-              <form action="habilitarUsuario" method="GET">
+              <form action="enableUser" method="GET">
                   <button type="submit" class="btn btn-outline-primary" name="user_id" value={$user->id_user}>Habilitar</button>
               </form>
           </td>

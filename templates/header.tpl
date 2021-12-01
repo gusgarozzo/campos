@@ -59,7 +59,7 @@
                             <li class="nav-item">
                                 <a class="navbar-brand" href="./mensajes">
                                 <p><i class="far fa-comment-dots"></i></p>
-                                    <img src="./img/msg_icon.png" alt="Mensajes" width="50">
+                                    <img class="img" src="./img/msg_icon.png" alt="Mensajes" width="50">
                                 </a>
                             </li>
                         </ul>
