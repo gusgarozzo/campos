@@ -52,7 +52,8 @@ class Controller {
 
     function providersController(){
         $action = $this->providerModel->getProviders();
-        $this->view->renderProvidersPanel($action);
+        $categories = $this->providerModel->getCategory();
+        $this->view->renderProvidersPanel($action, $categories);
     }
 
     function customerController(){
@@ -101,7 +102,7 @@ class Controller {
     }
 
     function newUserController(){
-        if(isset($_POST['input-name'])&&($_POST['input-lastname'])&&($_POST['input-email'])&& ($_POST['input-password'])){
+        if(isset($_POST['input-name']) && isset($_POST['input-lastname']) && isset($_POST['input-email']) && isset($_POST['input-password'])){
             $name = $_POST['input-name'];
             $lastname = $_POST['input-lastname'];
             $email = $_POST['input-email'];
@@ -206,5 +207,51 @@ class Controller {
             $error = "500 – Internal Server Error";
             $this->view->renderError($error);
         }
+    }
+
+    function addProvider(){
+        if (isset($_POST['input-name']) && isset($_POST['input-email']) && isset($_POST['input-phone']) &&
+            isset($_POST['input-address']) && isset($_POST['input-city'])&& isset($_POST['category']) && isset($_POST['input-comment'])){
+
+            $name = $_POST['input-name'];
+            $email = $_POST['input-email'];
+            $phone = $_POST['input-phone'];
+            $address = $_POST['input-address'];
+            $city = $_POST['input-city'];
+            $comment = $_POST['input-comment'];
+            $category = $_POST['category'];
+            
+            if(empty($comment)){
+                $comment = null;
+            }
+
+            $exist = $this->providerModel->getProviderByName($name);
+            if($exist < 1){
+                $action = $this->providerModel->addProvider($category, $name, $email, $phone, $address, $city, $comment);
+                if($action > 0){
+                    header("Location: " . BASE_URL . "admProviders");
+                }else{
+                    $this->view->renderError("Ocurrió un error. Por favor, reintente");
+                }
+            }else{
+                $this->view->renderError("El proveedor ya existe en nuestra base de datos");
+            }
+        }else{
+            $error = "500 – Internal Server Error";
+            $this->view->renderError($error);
+        }
+    }
+
+    function addCategory($params){
+        if(isset($_POST['input-name'])){
+            $params = $_POST['input-name'];
+            
+            $action = $this->providerModel->addCategory($params);
+            if($action > 0){
+                header("Location: " . BASE_URL . "admProviders");
+            }else{
+                $this->view->renderError("No se pudo agregar la categoría, por favor reintente");
+            }
+        }$this->view->renderError("500 – Internal Server Error");
     }
 }

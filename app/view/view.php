@@ -32,9 +32,10 @@ class View {
         $this->smarty->display('./templates/adm.tpl');
     }
 
-    function renderProvidersPanel($providers){
+    function renderProvidersPanel($providers, $categories){
         $this->smarty->assign('title', $this->title);
         $this->smarty->assign('providers', $providers);
+        $this->smarty->assign('categories', $categories);
         $this->smarty->display('./templates/admProviders.tpl');
     }
 

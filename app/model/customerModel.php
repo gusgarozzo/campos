@@ -73,7 +73,7 @@ class customerModel {
     }
 
     function getEmails(){
-        $query = $this->db->prepare('SELECT email FROM customer c ASC');
+        $query = $this->db->prepare('SELECT email FROM customer c ORDER BY email ASC');
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
     }

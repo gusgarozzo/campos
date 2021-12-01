@@ -29,6 +29,8 @@
     $r->addRoute("enableUser", "GET", "controller", "enableUser");
     $r->addRoute("disableUser", "GET", "controller", "disableUser");
     $r->addRoute("newCustomer", "POST", "controller", "addCustomer");
+    $r->addRoute("newCategory", "POST", "controller", "addCategory");
+    $r->addRoute("newProvider", "POST", "controller", "addProvider");
 /*
     //BOOKINGS
     $r->addRoute("checkin", "GET", "controller", "checkInController");

@@ -11,14 +11,33 @@
 <!--end add user menu-->
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+
+<!--add user menu-->   
+{include file="addProvider.tpl"}
+<!--end add user menu-->
+        </div>
+      </div>
+    <div class="row">
+        <div class="col">
+
+<!--add user menu-->   
+{include file="addCategory.tpl"}
+<!--end add user menu-->
+        </div>
+      </div>
+      
     </container>
     <br>
     <container class="text-center">
       <div class="row">
         <div class="col">
+        <br>
           <input type="button" name="imprimir" class="btn btn-outline-primary" value="Imprimir" onclick="window.print();">
         </div>
         <div class="col">
+        <br>
           <form action="reserva" method="GET">
             <a href="javascript:history.back(-1);" class="btn btn-outline-primary">Volver</a>
           </form>
