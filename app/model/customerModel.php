@@ -11,22 +11,22 @@ class customerModel {
 
     // INSERTS 
     function addCustomer($type, $name, $email, $address, $city, $phone, $status){
-        $query = $this->db->prepare('INSERT INTO customer(`kind`, `name`, `email`, `address`, `city`, `phone`, `status`) 
-            VALUES(?, ?. ?, ?, ?, ?, ?)');
+        $query = $this->db->prepare('INSERT INTO `customer` (`kind`, `name`, `email`, `address`, `city`, `phone`, `status`) 
+            VALUES (?,?,?,?,?,?,?)');
         $query->execute(array($type, $name, $email, $address, $city, $phone, $status));
         return $query->rowCount();
     }
 
     function addCustomerPayment($id_payment_method, $id_customer, $date, $total, $cancel, $card_number){
         $query = $this->db->prepare('INSERT INTO customer_payment(`id_payment_method`, `id_customer`, `date`, `total`, `cancel`, `card_number`) 
-            VALUES(?, ?. ?, ?, ?, ?)');
+            VALUES(?, ?, ?, ?, ?, ?)');
         $query->execute(array($id_payment_method, $id_customer, $date, $total, $cancel, $card_number));
         return true;
     }
 
     function addCustomerAccount($id_customer, $id_user, $id_sale_bill, $date, $status, $comment){
         $query = $this->db->prepare('INSERT INTO customer_account(`id_customer`, `id_user`, `id_sale_bill`, `date`, `status`, `comment`) 
-            VALUES(?, ?. ?, ?, ?, ?)');
+            VALUES(?, ?, ?, ?, ?, ?)');
         $query->execute(array($id_customer, $id_user, $id_sale_bill, $date, $status, $comment));
         return true;
     }

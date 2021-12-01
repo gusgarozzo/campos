@@ -182,8 +182,8 @@ class Controller {
 
     function addCustomer(){
 
-        if(isset($_POST['input-name'])&&($_POST['input-type'])&&($_POST['input-email'])&&($_POST['input-phone'])&&
-            ($_POST['input-address'])&&($_POST['input-city'])){
+        if (isset($_POST['input-name']) && isset($_POST['input-type']) && isset($_POST['input-email']) && isset($_POST['input-phone']) &&
+            isset($_POST['input-address']) && isset($_POST['input-city'])){
                 
             $name = $_POST['input-name'];
             $type = $_POST['input-type'];
@@ -193,10 +193,12 @@ class Controller {
             $city = $_POST['input-city'];
 
             $status = 1;
-                
+            
             $action = $this->customerModel->addCustomer($type, $name, $email, $address, $city, $phone, $status);
             if($action > 0){
-                header("Location:".BASE_URL."admCustomers");
+
+                header("Location: " . BASE_URL . "admCustomers");
+                return;
             }else{
                 $this->view->renderError("Ocurrió un error, revise los datos ingresados y reintente");
             }
