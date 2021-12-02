@@ -1,17 +1,11 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2021-11-19 04:38:54.132
+-- Last modification date: 2021-12-01 23:15:42.859
 
 -- tables
--- Table: category_provider
-CREATE TABLE category_provider (
-    id_cat_provider int NOT NULL AUTO_INCREMENT,
-    name varchar(50) NOT NULL,
-    CONSTRAINT category_provider_pk PRIMARY KEY (id_cat_provider)
-);
-
 -- Table: customer
 CREATE TABLE customer (
     id_customer int NOT NULL AUTO_INCREMENT,
+    id_customer_category int NOT NULL,
     kind varchar(30) NOT NULL,
     name varchar(50) NOT NULL,
     email varchar(30) NOT NULL,
@@ -26,13 +20,18 @@ CREATE TABLE customer (
 CREATE TABLE customer_account (
     id_customer_account int NOT NULL AUTO_INCREMENT,
     id_customer int NOT NULL,
-    id_user int NOT NULL,
     id_sale_bill int NOT NULL,
-    date date NOT NULL,
-    status bool NOT NULL,
     comment varchar(50) NULL,
     CONSTRAINT customer_account_pk PRIMARY KEY (id_customer_account)
 ) COMMENT 'total_due se calcula a traves de consulta en sale_bill con items en status 0 (impago)';
+
+-- Table: customer_category
+CREATE TABLE customer_category (
+    id_customer_category int NOT NULL AUTO_INCREMENT,
+    category_name varchar(50) NOT NULL,
+    status bool NOT NULL,
+    CONSTRAINT customer_category_pk PRIMARY KEY (id_customer_category)
+);
 
 -- Table: customer_payment
 CREATE TABLE customer_payment (
@@ -90,7 +89,6 @@ CREATE TABLE onsale_product (
     product_name varchar(50) NOT NULL,
     price decimal(8,2) NOT NULL,
     stock int NOT NULL,
-    min_stock int NOT NULL,
     status bool NOT NULL,
     CONSTRAINT onsale_product_pk PRIMARY KEY (id_onsale_product)
 );
@@ -107,7 +105,6 @@ CREATE TABLE payment_method (
 -- Table: provider
 CREATE TABLE provider (
     id_provider int NOT NULL AUTO_INCREMENT,
-    id_cat_provider int NOT NULL,
     name varchar(50) NOT NULL,
     email varchar(30) NOT NULL,
     phone int NOT NULL,
@@ -122,9 +119,10 @@ CREATE TABLE provider_bill (
     id_provider_bill int NOT NULL AUTO_INCREMENT,
     id_user int NOT NULL,
     id_provider int NOT NULL,
+    bill_number int NOT NULL,
     date date NOT NULL,
     payment_status bool NOT NULL,
-    comment varchar(255) NULL,
+    comment varchar(255) NOT NULL,
     CONSTRAINT provider_bill_pk PRIMARY KEY (id_provider_bill)
 );
 
@@ -135,28 +133,14 @@ CREATE TABLE provider_category_product (
     CONSTRAINT category_product_pk PRIMARY KEY (id_category_product)
 );
 
--- Table: provider_payment
-CREATE TABLE provider_payment (
-    id_provider_payment int NOT NULL AUTO_INCREMENT,
-    id_payment_method int NOT NULL,
-    id_provider int NOT NULL,
-    id_user int NOT NULL,
-    date date NOT NULL,
-    total decimal(8,2) NOT NULL,
-    cancel bool NOT NULL,
-    provider_bill varchar(250) NOT NULL,
-    CONSTRAINT provider_payment_pk PRIMARY KEY (id_provider_payment)
-) COMMENT 'Agregar facturas pagadas a columna provider_bill en forma de strings concatenados?';
-
 -- Table: provider_product
 CREATE TABLE provider_product (
     id_provider_product int NOT NULL AUTO_INCREMENT,
     id_provider_category_product int NOT NULL,
     id_provider int NOT NULL,
     product_name varchar(50) NOT NULL,
-    price decimal(8,2) NOT NULL,
     stock int NOT NULL,
-    min_stock int NOT NULL,
+    min_stock int NULL,
     CONSTRAINT Product_pk PRIMARY KEY (id_provider_product)
 );
 
@@ -202,9 +186,13 @@ CREATE TABLE user (
 ALTER TABLE customer_account ADD CONSTRAINT customer_account_customer FOREIGN KEY customer_account_customer (id_customer)
     REFERENCES customer (id_customer);
 
--- Reference: customer_account_user (table: customer_account)
-ALTER TABLE customer_account ADD CONSTRAINT customer_account_user FOREIGN KEY customer_account_user (id_user)
-    REFERENCES user (id_user);
+-- Reference: customer_account_sale_bill (table: customer_account)
+ALTER TABLE customer_account ADD CONSTRAINT customer_account_sale_bill FOREIGN KEY customer_account_sale_bill (id_sale_bill)
+    REFERENCES sale_bill (id_sale_bill);
+
+-- Reference: customer_customer_category (table: customer)
+ALTER TABLE customer ADD CONSTRAINT customer_customer_category FOREIGN KEY customer_customer_category (id_customer_category)
+    REFERENCES customer_category (id_customer_category);
 
 -- Reference: inbox_message (table: inbox)
 ALTER TABLE inbox ADD CONSTRAINT inbox_message FOREIGN KEY inbox_message (id_message)
@@ -237,22 +225,6 @@ ALTER TABLE provider_bill ADD CONSTRAINT provider_bill_user FOREIGN KEY provider
 -- Reference: provider_bills_provider (table: provider_bill)
 ALTER TABLE provider_bill ADD CONSTRAINT provider_bills_provider FOREIGN KEY provider_bills_provider (id_provider)
     REFERENCES provider (id_provider);
-
--- Reference: provider_category_provider (table: provider)
-ALTER TABLE provider ADD CONSTRAINT provider_category_provider FOREIGN KEY provider_category_provider (id_cat_provider)
-    REFERENCES category_provider (id_cat_provider);
-
--- Reference: provider_payment_payment_method (table: provider_payment)
-ALTER TABLE provider_payment ADD CONSTRAINT provider_payment_payment_method FOREIGN KEY provider_payment_payment_method (id_payment_method)
-    REFERENCES payment_method (id_payment_method);
-
--- Reference: provider_payment_provider (table: provider_payment)
-ALTER TABLE provider_payment ADD CONSTRAINT provider_payment_provider FOREIGN KEY provider_payment_provider (id_provider)
-    REFERENCES provider (id_provider);
-
--- Reference: provider_payment_user (table: provider_payment)
-ALTER TABLE provider_payment ADD CONSTRAINT provider_payment_user FOREIGN KEY provider_payment_user (id_user)
-    REFERENCES user (id_user);
 
 -- Reference: provider_product_category_product (table: provider_product)
 ALTER TABLE provider_product ADD CONSTRAINT provider_product_category_product FOREIGN KEY provider_product_category_product (id_provider_category_product)
