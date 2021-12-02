@@ -23,7 +23,7 @@
         <div class="col">
 
 <!--add user menu-->   
-{include file="addCategory.tpl"}
+<!--{include file="addCategory.tpl"}-->
 <!--end add user menu-->
         </div>
       </div>

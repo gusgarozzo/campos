@@ -45,20 +45,20 @@ class Controller {
         $this->view->renderDashboard($date);
     }
 
-
+    // Admin section functions
     function admController(){
         $this->view->renderAdmPanel();
     }
 
     function providersController(){
         $action = $this->providerModel->getProviders();
-        $categories = $this->providerModel->getCategory();
-        $this->view->renderProvidersPanel($action, $categories);
+        $this->view->renderProvidersPanel($action);
     }
 
     function customerController(){
         $action = $this->customerModel->getCustomers();
-        $this->view->renderCustomersPanel($action); 
+        $category = $this->customerModel->getCustomerCategory();
+        $this->view->renderCustomersPanel($action, $category); 
     }
 
     function usersController(){
@@ -182,16 +182,16 @@ class Controller {
     }
 
     function addCustomer(){
-
-        if (isset($_POST['input-name']) && isset($_POST['input-type']) && isset($_POST['input-email']) && isset($_POST['input-phone']) &&
-            isset($_POST['input-address']) && isset($_POST['input-city'])){
+        if (isset($_POST['input-name']) && isset($_POST['input-email']) && isset($_POST['input-phone']) &&
+            isset($_POST['input-address']) && isset($_POST['input-city']) && isset($_POST['category'])){
                 
             $name = $_POST['input-name'];
-            $type = $_POST['input-type'];
             $email = $_POST['input-email'];
             $phone = $_POST['input-phone'];
             $address = $_POST['input-address'];
             $city = $_POST['input-city'];
+            $type = $_POST['category'];
+
 
             $status = 1;
             
@@ -209,9 +209,23 @@ class Controller {
         }
     }
 
+    function addCustomerCategory($params){
+        if(isset($_POST['input-name'])){
+            $params = $_POST['input-name'];
+            $status = 1;
+
+            $action = $this->customerModel->addCustomerCategory($params, $status);
+            if($action > 0){
+                header("Location: " . BASE_URL . "admCustomers");
+            }else{
+                $this->view->renderError("No se pudo agregar la categoría, por favor reintente");
+            }
+        }$this->view->renderError("500 – Internal Server Error");
+    }
+
     function addProvider(){
         if (isset($_POST['input-name']) && isset($_POST['input-email']) && isset($_POST['input-phone']) &&
-            isset($_POST['input-address']) && isset($_POST['input-city'])&& isset($_POST['category']) && isset($_POST['input-comment'])){
+            isset($_POST['input-address']) && isset($_POST['input-city'])&& isset($_POST['input-comment'])){
 
             $name = $_POST['input-name'];
             $email = $_POST['input-email'];
@@ -219,7 +233,6 @@ class Controller {
             $address = $_POST['input-address'];
             $city = $_POST['input-city'];
             $comment = $_POST['input-comment'];
-            $category = $_POST['category'];
             
             if(empty($comment)){
                 $comment = null;
@@ -227,7 +240,7 @@ class Controller {
 
             $exist = $this->providerModel->getProviderByName($name);
             if($exist < 1){
-                $action = $this->providerModel->addProvider($category, $name, $email, $phone, $address, $city, $comment);
+                $action = $this->providerModel->addProvider($name, $email, $phone, $address, $city, $comment);
                 if($action > 0){
                     header("Location: " . BASE_URL . "admProviders");
                 }else{
@@ -242,7 +255,7 @@ class Controller {
         }
     }
 
-    function addCategory($params){
+    /*function addCategory($params){
         if(isset($_POST['input-name'])){
             $params = $_POST['input-name'];
             
@@ -253,5 +266,5 @@ class Controller {
                 $this->view->renderError("No se pudo agregar la categoría, por favor reintente");
             }
         }$this->view->renderError("500 – Internal Server Error");
-    }
+    }*/
 }

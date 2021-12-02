@@ -27,21 +27,22 @@ class View {
         $this->smarty->display('./templates/error.tpl');
     }
 
+    // ADMIN
     function renderAdmPanel(){
         $this->smarty->assign('title', $this->title);
         $this->smarty->display('./templates/adm.tpl');
     }
 
-    function renderProvidersPanel($providers, $categories){
+    function renderProvidersPanel($providers){
         $this->smarty->assign('title', $this->title);
         $this->smarty->assign('providers', $providers);
-        $this->smarty->assign('categories', $categories);
         $this->smarty->display('./templates/admProviders.tpl');
     }
 
-    function renderCustomersPanel($customers){
+    function renderCustomersPanel($customers, $categories){
         $this->smarty->assign('title', $this->title);
         $this->smarty->assign('customers', $customers);
+        $this->smarty->assign('categories', $categories);
         $this->smarty->display('./templates/admCustomers.tpl');
     }
 
@@ -68,5 +69,9 @@ class View {
         $this->smarty->display('./templates/addSeller.tpl');
     }
 
-
+    // PLANT
+    function renderPlantPanel(){
+        $this->smarty->assign('title', $this->title);
+        //$this->smarty->display('./templates/plant.tpl');
+    }
 }

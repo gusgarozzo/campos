@@ -10,10 +10,10 @@ class customerModel {
     }
 
     // INSERTS 
-    function addCustomer($type, $name, $email, $address, $city, $phone, $status){
-        $query = $this->db->prepare('INSERT INTO `customer` (`kind`, `name`, `email`, `address`, `city`, `phone`, `status`) 
+    function addCustomer($category, $name, $email, $address, $city, $phone, $status){
+        $query = $this->db->prepare('INSERT INTO `customer` (`id_customer_category`, `name`, `email`, `address`, `city`, `phone`, `status`) 
             VALUES (?,?,?,?,?,?,?)');
-        $query->execute(array($type, $name, $email, $address, $city, $phone, $status));
+        $query->execute(array($category, $name, $email, $address, $city, $phone, $status));
         return $query->rowCount();
     }
 
@@ -29,6 +29,13 @@ class customerModel {
             VALUES(?, ?, ?, ?, ?, ?)');
         $query->execute(array($id_customer, $id_user, $id_sale_bill, $date, $status, $comment));
         return true;
+    }
+
+    function addCustomerCategory($name, $status){
+        $query = $this->db->prepare('INSERT INTO customer_category(`category_name`, `status`) 
+            VALUES(?, ?)');
+        $query->execute(array($name, $status));
+        return $query->rowCount();
     }
 
     // UPDATES
@@ -55,7 +62,8 @@ class customerModel {
 
     // GENERAL SELECTS
     function getCustomers(){
-        $query = $this->db->prepare('SELECT * FROM customer c ORDER BY c.name ASC');
+        $query = $this->db->prepare('SELECT * FROM customer c INNER JOIN customer_category cu ON c.id_customer_category = cu.id_customer_category
+            ORDER BY c.name ASC');
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
@@ -74,6 +82,12 @@ class customerModel {
 
     function getEmails(){
         $query = $this->db->prepare('SELECT email FROM customer c ORDER BY email ASC');
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    function getCustomerCategory(){
+        $query = $this->db->prepare('SELECT * FROM customer_category c ORDER BY category_name ASC');
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
     }

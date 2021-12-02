@@ -19,6 +19,16 @@
 <!--end add user menu-->
         </div>
       </div>
+
+            <div class="row">
+        <div class="col">
+
+<!--add user menu-->   
+{include file="addCategory.tpl"}
+<!--end add user menu-->
+        </div>
+      </div>
+
     </container>
     <br>
     <container class="text-center">
@@ -42,6 +52,7 @@
     <thead>
       <tr class="justify-content-center">
         <th scope="col">Nombre  <a href="dashboard"><img src="./img/sort_icon.png" alt="Ordenar alfabeticamente" width="20" heigth="20"></th>
+        <th scope="col">Categoria</th>
         <th scope="col">Email</th>
         <th scope="col">Telefono</th>
         <th scope="col">Domicilio</th>
@@ -53,6 +64,7 @@
     {foreach from=$customers item=customer}
     <tr class="justify-content-center">
       <th scope="row"><span>{$customer->name}</span></th>
+      <td>{$customer->category_name}</td>
       <td>{$customer->email}</td>
       <td>{$customer->phone}</td>
       <td>{$customer->address}</td>

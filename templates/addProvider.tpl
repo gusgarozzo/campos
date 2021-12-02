@@ -47,7 +47,7 @@
                                         <br>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <!--<div class="row">
                                 <div class="col">     
                                     </div>
                                     <div class="col">
@@ -66,7 +66,7 @@
                                     <div class="col">
                     
                                     </div>
-                                </div>
+                                </div>-->
                                 <br>
                                 <div class="row">
                                     <div class="col">

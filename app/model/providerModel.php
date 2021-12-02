@@ -10,16 +10,16 @@ class providerModel {
     }
 
     // INSERTS
-    function addCategory($name){
+    /*function addCategory($name){
         $query = $this->db->prepare('INSERT INTO category_provider(`name`) VALUES(?)');
         $query->execute(array($name));
         return $query->rowCount();
-    }
+    }*/
 
-    function addProvider($category_id, $name, $email, $phone, $address, $city, $comment){
-        $query = $this->db->prepare('INSERT INTO provider (`id_cat_provider`, `name`, `email`, `phone`, `address`, `city`, `comment`)
-            VALUES (?,?,?,?,?,?,?)');
-        $query->execute(array($category_id, $name, $email, $phone, $address, $city, $comment));
+    function addProvider($name, $email, $phone, $address, $city, $comment){
+        $query = $this->db->prepare('INSERT INTO provider (`name`, `email`, `phone`, `address`, `city`, `comment`)
+            VALUES (?,?,?,?,?,?)');
+        $query->execute(array($name, $email, $phone, $address, $city, $comment));
         return $query->rowCount();
     }
 

@@ -17,8 +17,27 @@
                                         <input type="text" name="input-name" class="form-control" required>       
                                     </div>
                                     <div class="col">
-                                        <label class="col-form-label mt-4" for="inputDefault">Tipo de Cliente</label>
-                                        <input type="text" name="input-type" class="form-control" required>  
+                                        <div class="row">
+                                <div class="col">     
+                                    </div>
+                                    
+                                    <div class="col">
+                                        <br>
+                                    <label class="col-form-label mt-4" for="inputDefault">Categoría</label>
+                                        <select name="category">
+                                        {if $categories eq null}
+                                            <option>Agregue una categoría...</option>
+                                        {else}
+                                            {foreach from=$categories item=category}
+                                                <option value="{$category->id_customer_category}">{$category->category_name}</option>
+                                            {/foreach}
+                                        {/if}
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                    
+                                    </div>
+                                </div>  
                                     </div>
                                 </div>
                                 <div class="row">
@@ -44,6 +63,7 @@
                                         <input type="text" name="input-city" class="form-control" required>
                                         <br>
                                     </div>
+                                    
                                 </div>
                                 <br>
                                 <div class="row">
