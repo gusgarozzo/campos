@@ -9,26 +9,33 @@
             <div class="accordion-body">
 
                 <container class="text-center bookingsSlider">
-                <form action="providerFilter" method="POST">
+                <form action="providerFilterByName" method="GET">
                         <div class="row">
-                            <div class="col">
-                                <label class="col-form-label mt-4" for="inputDefault">Nombre</label>
-                                <input type="text" id="start" name="input-name" class="form-control">       
+                        <div class="col">
                             </div>
                             <div class="col">
-                                <label class="col-form-label mt-4" for="inputDefault">Apellido</label>
-                                <input type="text" id="start" name="input-lastname" class="form-control">       
+                                <label class="col-form-label mt-4" for="inputDefault">Por nombre</label>
+                                <input type="text" id="start" name="filter" class="form-control" placeholder="Buscar por nombre">   
+                                <br>  
+                                <button type="submit" class="btn btn-outline-primary">Buscar</button>  
                             </div>
                             <div class="col">
-                                <label class="col-form-label mt-4" for="inputDefault">E - mail</label>
-                                <input type="text" id="start" name="input-email" class="form-control">       
                             </div>
                         <div>
+                    </form>
                     <br>
+                    <form action="providerFilterByProduct" method="GET">
                     <div class="row">
+                    <div class="col">
+                            </div>
                         <div class="col">
-                            <button type="submit" class="btn btn-outline-primary">Buscar</button>  
-                        </div> 
+                            <label class="col-form-label mt-4" for="inputDefault">Por producto</label>
+                            <input type="text" id="start" name="filter" class="form-control" placeholder="Buscar por producto">     
+                            <br>
+                            <button type="submit" class="btn btn-outline-primary">Buscar</button>    
+                        </div>
+                        <div class="col">
+                            </div>
                     </div>
                 </form>
                 </container>

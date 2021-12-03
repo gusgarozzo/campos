@@ -40,9 +40,11 @@ class View {
     }
 
     function renderCustomersPanel($customers, $categories){
+        $this->newCategory = "newCustomerCategory";
         $this->smarty->assign('title', $this->title);
         $this->smarty->assign('customers', $customers);
         $this->smarty->assign('categories', $categories);
+        $this->smarty->assign('newCategory', $this->newCategory);
         $this->smarty->display('./templates/admCustomers.tpl');
     }
 
@@ -69,9 +71,13 @@ class View {
         $this->smarty->display('./templates/addSeller.tpl');
     }
 
-    // PLANT
-    function renderPlantPanel(){
+    function renderStockPanel($products, $categories, $providers){
+        $this->newCategory = "newProviderCategory";
         $this->smarty->assign('title', $this->title);
-        //$this->smarty->display('./templates/plant.tpl');
+        $this->smarty->assign('products', $products);
+        $this->smarty->assign('providers', $providers);
+        $this->smarty->assign('categories', $categories);
+        $this->smarty->assign('newCategory', $this->newCategory);
+        $this->smarty->display('./templates/admStock.tpl');
     }
 }

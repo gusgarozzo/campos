@@ -45,7 +45,6 @@ class Controller {
         $this->view->renderDashboard($date);
     }
 
-    // Admin section functions
     function admController(){
         $this->view->renderAdmPanel();
     }
@@ -59,6 +58,13 @@ class Controller {
         $action = $this->customerModel->getCustomers();
         $category = $this->customerModel->getCustomerCategory();
         $this->view->renderCustomersPanel($action, $category); 
+    }
+
+    function stockController(){
+        $action = $this->providerModel->getProviderProduct();
+        $categories = $this->providerModel->getProviderCategoryProduct();
+        $providers = $this->providerModel->getProviders();
+        $this->view->renderStockPanel($action, $categories, $providers);
     }
 
     function usersController(){
@@ -216,7 +222,20 @@ class Controller {
 
             $action = $this->customerModel->addCustomerCategory($params, $status);
             if($action > 0){
-                header("Location: " . BASE_URL . "admCustomers");
+                header("Location: " . BASE_URL . "clientes");
+            }else{
+                $this->view->renderError("No se pudo agregar la categoría, por favor reintente");
+            }
+        }$this->view->renderError("500 – Internal Server Error");
+    }
+
+    function addProviderCategory($params){
+        if(isset($_POST['input-name'])){
+            $params = $_POST['input-name'];
+
+            $action = $this->providerModel->addProviderCategoryProduct($params);
+            if($action > 0){
+                header("Location: " . BASE_URL . "stock");
             }else{
                 $this->view->renderError("No se pudo agregar la categoría, por favor reintente");
             }
@@ -242,7 +261,7 @@ class Controller {
             if($exist < 1){
                 $action = $this->providerModel->addProvider($name, $email, $phone, $address, $city, $comment);
                 if($action > 0){
-                    header("Location: " . BASE_URL . "admProviders");
+                    header("Location: " . BASE_URL . "proveedores");
                 }else{
                     $this->view->renderError("Ocurrió un error. Por favor, reintente");
                 }
@@ -252,6 +271,63 @@ class Controller {
         }else{
             $error = "500 – Internal Server Error";
             $this->view->renderError($error);
+        }
+    }
+
+    function providerFilterByName(){
+        if(isset($_GET['filter'])){
+            $filter = $_GET['filter'];
+
+            $action = $this->providerModel->searchProviderByName($filter);
+
+            if($action){
+                $this->view->renderProvidersPanel($action);
+            }else{
+                $this->view->renderError("Su búsqueda no arrojó resultados");
+            }
+        }else{
+            $this->providersController();
+        }
+    }
+
+    function providerFilterByProduct(){
+        if(isset($_GET['filter'])){
+            $filter = $_GET['filter'];
+
+            $action = $this->providerModel->searchProviderByProduct($filter);
+
+            if($action){
+                $this->view->renderProvidersPanel($action);
+            }else{
+                $this->view->renderError("Su búsqueda no arrojó resultados");
+            }
+        }else{
+            $this->providersController();
+        }
+    }
+
+    function newProduct(){
+        if(isset($_POST['name']) && isset($_POST['stock']) && isset($_POST['min-stock']) 
+            && isset($_POST['category']) && isset($_POST['provider'])){
+                $name = $_POST['name'];
+                $stock = $_POST['stock'];
+                $minStock = $_POST['min-stock'];
+                $category = $_POST['category'];
+                $provider = $_POST['provider'];
+
+                if(empty($minStock)){
+                    $minStock = null;
+                }
+
+                $action = $this->providerModel->addProviderProduct($category, $provider, $name, $stock, $minStock);
+                
+                if($action > 0){
+                    header("Location: " . BASE_URL . "stock");
+                }else{
+                    $this->view->renderError("No se pudo agregar el producto, por favor reintente");
+                }
+        }else{
+            $this->view->renderError("500 – Internal Server Error");
         }
     }
 

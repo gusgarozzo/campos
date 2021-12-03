@@ -43,6 +43,9 @@
                             <a class="nav-link" href="./proveedores">Proveedores</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="./clientes">Clientes</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="./administracion">Administración</a>
                         </li>
                         <li class="nav-item dropdown">

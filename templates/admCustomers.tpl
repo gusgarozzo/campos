@@ -57,7 +57,7 @@
         <th scope="col">Telefono</th>
         <th scope="col">Domicilio</th>
         <th scope="col">Ciudad</th>
-        <th scope="col">Estado de cuenta</th>
+        <th scope="col">Estado</th>
       </tr>
     </thead>
     <tbody>
@@ -69,7 +69,25 @@
       <td>{$customer->phone}</td>
       <td>{$customer->address}</td>
       <td>{$customer->city}</td>
-      <td>{$customer->status}</td>
+      {if $customer->status eq 1}
+          <td>        
+              <span class="badge bg-success">Habilitado</span>
+          </td>
+          <td>
+              <form action="disableUser" method="GET">
+                  <button type="submit" class="btn btn-outline-primary" name="user_id" value={$customer->id_customer}>Deshabilitar</button>
+              </form>
+          </td>
+          {else}
+          <td>
+              <span class="badge bg-danger">Deshabilitado</span>
+          </td>
+          <td>
+              <form action="enableUser" method="GET">
+                  <button type="submit" class="btn btn-outline-primary" name="user_id" value={$customer->id_customer}>Habilitar</button>
+              </form>
+          </td>
+          {/if}
       <td>
           <form action="verPedidos" method="GET">
               <button type="submit" class="btn btn-outline-primary" name="guest_id" value="{$customer->id_customer}">Ver pedidos</button>

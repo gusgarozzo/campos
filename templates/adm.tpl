@@ -12,8 +12,7 @@
 <container class="text-center">
     <div class="d-grid gap-2">
     <a href="admUsers" class="btn btn-outline-primary" role="button">Administrar usuarios</a>
-    <a href="admProviders" class="btn btn-outline-primary" role="button">Administrar proveedores</a>
-    <a href="admCustomers" class="btn btn-outline-primary" role="button">Administrar clientes</a>
+    <!--<a href="admProviders" class="btn btn-outline-primary" role="button">Administrar proveedores</a>-->
     <a href="admSellers" class="btn btn-outline-primary" role="button">Administrar vendedores</a>
     </div>
 </container>

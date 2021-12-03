@@ -37,15 +37,15 @@ class providerModel {
         return $query->rowCount();
     }
 
-    function addProviderProduct($provider_category_product_id, $provider_id, $product_name, $price, $stock, $min_stock){
-        $query = $this->db->prepare('INSERT INTO provider_product(`id_provider_category_product`, `id_provider`, `product_name`. 
-            `price`, `stock`, `min_stock`) VALUES (?,?,?,?,?,?)');
-        $query->execute(array($provider_category_product_id, $provider_id, $product_name, $price, $stock, $min_stock));
+    function addProviderProduct($category, $provider, $name, $stock, $minStock){
+        $query = $this->db->prepare('INSERT INTO provider_product(`id_provider_category_product`, `id_provider`, `product_name`,
+            `stock`, `min_stock`) VALUES (?,?,?,?,?)');
+        $query->execute(array($category, $provider, $name, $stock, $minStock));
         return $query->rowCount();
     }
 
     function addProviderCategoryProduct($name){
-        $query = $this->db->prepare('INSERT INTO provider_category_product(`name`) VALUES(?)');
+        $query = $this->db->prepare('INSERT INTO provider_category_product(`category_name`) VALUES(?)');
         $query->execute(array($name));
         return $query->rowCount();
     }
@@ -119,13 +119,14 @@ class providerModel {
     }
 
     function getProviderProduct(){
-        $query = $this->db->prepare('SELECT * FROM provider_product p ORDER BY p.stock ASC');
+        $query = $this->db->prepare('SELECT * FROM provider_product p INNER JOIN provider pp ON p.id_provider = pp.id_provider 
+            INNER JOIN provider_category_product c ON p.id_provider_category_product = c.id_category_product ORDER BY p.stock ASC');
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
 
     function getProviderCategoryProduct(){
-        $query = $this->db->prepare('SELECT * FROM provider_category_product p ORDER BY p.category_name ASC');
+        $query = $this->db->prepare('SELECT * FROM provider_category_product p');
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
@@ -179,5 +180,18 @@ class providerModel {
         $query = $this->db->prepare('SELECT * FROM provider WHERE name=?');
         $query->execute(array($name));
         return $query->rowCount();
+    }
+
+    function searchProviderByName($name){
+        $query = $this->db->prepare("SELECT * FROM provider WHERE name LIKE '%$name%'");
+        $query->execute(array($name));
+        return $query->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    function searchProviderByProduct($name){
+        $query = $this->db->prepare("SELECT pp.name, pp.email, pp.phone, pp.address, pp.city, pp.comment 
+            FROM provider_product p INNER JOIN provider pp ON p.id_provider = pp.id_provider WHERE p.product_name LIKE '%$name%'");
+        $query->execute(array($name));
+        return $query->fetchAll(PDO::FETCH_OBJ);
     }
 }
