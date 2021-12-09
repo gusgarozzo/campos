@@ -59,7 +59,10 @@ class Controller {
     }
 
     function customerController(){
+<<<<<<< HEAD
         $this->helper->sessionController();
+=======
+>>>>>>> f8465e257183d87ed5f0c40a17300218863abd5f
         $customers = $this->customerModel->getCustomers();
         $categories = $this->customerModel->getCustomerCategory();
         $this->view->renderCustomersPanel($customers, $categories); 
@@ -372,7 +375,10 @@ class Controller {
     }*/
 
     function disableProduct(){
+<<<<<<< HEAD
         $this->helper->sessionController();
+=======
+>>>>>>> f8465e257183d87ed5f0c40a17300218863abd5f
         if (isset($_GET['product_id'])) {
             $id = $_GET['product_id'];
             
@@ -394,7 +400,10 @@ class Controller {
     }
 
     function enableProduct(){
+<<<<<<< HEAD
         $this->helper->sessionController();
+=======
+>>>>>>> f8465e257183d87ed5f0c40a17300218863abd5f
         if (isset($_GET['product_id'])) {
             $id = $_GET['product_id'];
             
@@ -414,6 +423,7 @@ class Controller {
             return;
         }
     }
+<<<<<<< HEAD
 
     function disableCustomer(){
         $this->helper->sessionController();
@@ -589,7 +599,7 @@ class Controller {
 
     }
     
-    function markBillAsPayed(){
+    function markBillAsPaid(){
         $this->helper->sessionController();
         if (isset($_GET['bill'])) {
             $id = $_GET['bill'];
@@ -611,4 +621,6 @@ class Controller {
         }
     }
 
+=======
+>>>>>>> f8465e257183d87ed5f0c40a17300218863abd5f
 }
