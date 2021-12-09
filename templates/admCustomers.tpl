@@ -19,7 +19,6 @@
 <!--end add user menu-->
         </div>
       </div>
-
             <div class="row">
         <div class="col">
 
@@ -51,10 +50,10 @@
   <table class="table table-hover table-responsive">
     <thead>
       <tr class="justify-content-center">
-        <th scope="col">Nombre  <a href="dashboard"><img src="./img/sort_icon.png" alt="Ordenar alfabeticamente" width="20" heigth="20"></th>
-        <th scope="col">Categoria</th>
+        <th scope="col">Nombre <a href="dashboard"><img src="./img/sort_icon.png" alt="Ordenar alfabeticamente" width="20" heigth="20"></th>
+        <th scope="col">Categoría</th>
         <th scope="col">Email</th>
-        <th scope="col">Telefono</th>
+        <th scope="col">Teléfono</th>
         <th scope="col">Domicilio</th>
         <th scope="col">Ciudad</th>
         <th scope="col">Estado</th>
@@ -69,13 +68,13 @@
       <td>{$customer->phone}</td>
       <td>{$customer->address}</td>
       <td>{$customer->city}</td>
-      {if $customer->status eq 1}
+      {if $customer->customer_status eq 1}
           <td>        
               <span class="badge bg-success">Habilitado</span>
           </td>
           <td>
-              <form action="disableUser" method="GET">
-                  <button type="submit" class="btn btn-outline-primary" name="user_id" value={$customer->id_customer}>Deshabilitar</button>
+              <form action="disableCustomer" method="GET">
+                  <button type="submit" class="btn btn-outline-primary" name="customer_id" value={$customer->id_customer}>Deshabilitar</button>
               </form>
           </td>
           {else}
@@ -83,14 +82,14 @@
               <span class="badge bg-danger">Deshabilitado</span>
           </td>
           <td>
-              <form action="enableUser" method="GET">
-                  <button type="submit" class="btn btn-outline-primary" name="user_id" value={$customer->id_customer}>Habilitar</button>
+              <form action="enableCustomer" method="GET">
+                  <button type="submit" class="btn btn-outline-primary" name="customer_id" value={$customer->id_customer}>Habilitar</button>
               </form>
           </td>
           {/if}
       <td>
           <form action="verPedidos" method="GET">
-              <button type="submit" class="btn btn-outline-primary" name="guest_id" value="{$customer->id_customer}">Ver pedidos</button>
+              <button type="submit" class="btn btn-outline-primary" name="customer_id" value="{$customer->id_customer}">Ver pedidos</button>
           </form>
       </td>
       </tr>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 02-12-2021 a las 21:57:44
+-- Tiempo de generación: 09-12-2021 a las 15:13:55
 -- Versión del servidor: 8.0.27
 -- Versión de PHP: 7.4.25
 
@@ -35,14 +35,14 @@ CREATE TABLE `customer` (
   `address` varchar(50) NOT NULL,
   `city` varchar(30) NOT NULL,
   `phone` int NOT NULL,
-  `status` tinyint(1) NOT NULL
+  `customer_status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `customer`
 --
 
-INSERT INTO `customer` (`id_customer`, `id_customer_category`, `name`, `email`, `address`, `city`, `phone`, `status`) VALUES
+INSERT INTO `customer` (`id_customer`, `id_customer_category`, `name`, `email`, `address`, `city`, `phone`, `customer_status`) VALUES
 (1, 1, 'Gin SA', 'ginsa@gmail.com', 'Pinto 100', 'Tandil', 12313131, 1);
 
 -- --------------------------------------------------------
@@ -75,7 +75,9 @@ CREATE TABLE `customer_category` (
 --
 
 INSERT INTO `customer_category` (`id_customer_category`, `category_name`, `status`) VALUES
-(1, 'Alcohol', 1);
+(1, 'Alcohol', 1),
+(2, 'Gastronomia', 1),
+(3, 'Preventistas', 1);
 
 -- --------------------------------------------------------
 
@@ -195,7 +197,8 @@ CREATE TABLE `provider` (
 --
 
 INSERT INTO `provider` (`id_provider`, `name`, `email`, `phone`, `address`, `city`, `comment`) VALUES
-(1, 'Supermercados Monarca', 'info@supermercado.com.ar', 1231313, 'Colon 1300', 'Tandil', NULL);
+(1, 'Supermercados Monarca', 'info@supermercado.com.ar', 1231313, 'Colon 1300', 'Tandil', NULL),
+(2, 'Daedaz', 'daedaz@gmail.com', 213123131, 'Av Brasil 1000', 'Tandil', NULL);
 
 -- --------------------------------------------------------
 
@@ -210,8 +213,16 @@ CREATE TABLE `provider_bill` (
   `bill_number` int NOT NULL,
   `date` date NOT NULL,
   `payment_status` tinyint(1) NOT NULL,
-  `comment` varchar(255) NOT NULL
+  `detail` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `price` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `provider_bill`
+--
+
+INSERT INTO `provider_bill` (`id_provider_bill`, `id_user`, `id_provider`, `bill_number`, `date`, `payment_status`, `detail`, `price`) VALUES
+(1, 2, 2, 1231313, '2021-12-08', 1, 'adsnoadnad', 2000);
 
 -- --------------------------------------------------------
 
@@ -223,6 +234,15 @@ CREATE TABLE `provider_category_product` (
   `id_category_product` int NOT NULL,
   `category_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `provider_category_product`
+--
+
+INSERT INTO `provider_category_product` (`id_category_product`, `category_name`) VALUES
+(1, 'Limpieza'),
+(2, 'botanicos'),
+(3, 'Materia prima');
 
 -- --------------------------------------------------------
 
@@ -236,8 +256,17 @@ CREATE TABLE `provider_product` (
   `id_provider` int NOT NULL,
   `product_name` varchar(50) NOT NULL,
   `stock` int NOT NULL,
-  `min_stock` int DEFAULT NULL
+  `min_stock` int DEFAULT NULL,
+  `status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `provider_product`
+--
+
+INSERT INTO `provider_product` (`id_provider_product`, `id_provider_category_product`, `id_provider`, `product_name`, `stock`, `min_stock`, `status`) VALUES
+(1, 1, 2, 'Lavandina', 150, 100, 1),
+(2, 2, 1, 'pimienta', 300, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -293,8 +322,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `user_name`, `user_lastname`, `email`, `password`, `status`, `role`) VALUES
-(1, 'Juan', 'Perez', 'juanseca@campos.com', 'campo', 1, 'p'),
-(2, 'Carlos', 'Rodriguez', 'carlos@campos.com', 'campos', 1, 's');
+(1, 'Juan', 'Perez', 'juanseca@campos.com', '$2a$12$P0Xr05WOhOuMoLyGsbpedOdm6VQ2cY6ZNinVtUba.wFpY.i1RsmbK', 0, 'p'),
+(2, 'Carlos', 'Rodriguez', 'carlos@campos.com', '$2a$12$f6X/j86JuUzt8kEoAkQLAO9b7ErvLT8vOV6pYgY5CO7r7Ff2eqgbW', 1, 's');
 
 --
 -- Índices para tablas volcadas
@@ -437,7 +466,7 @@ ALTER TABLE `customer_account`
 -- AUTO_INCREMENT de la tabla `customer_category`
 --
 ALTER TABLE `customer_category`
-  MODIFY `id_customer_category` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_customer_category` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `customer_payment`
@@ -485,25 +514,25 @@ ALTER TABLE `payment_method`
 -- AUTO_INCREMENT de la tabla `provider`
 --
 ALTER TABLE `provider`
-  MODIFY `id_provider` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_provider` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `provider_bill`
 --
 ALTER TABLE `provider_bill`
-  MODIFY `id_provider_bill` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_provider_bill` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `provider_category_product`
 --
 ALTER TABLE `provider_category_product`
-  MODIFY `id_category_product` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_category_product` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `provider_product`
 --
 ALTER TABLE `provider_product`
-  MODIFY `id_provider_product` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_provider_product` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `sale_bill`

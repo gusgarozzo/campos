@@ -64,4 +64,10 @@ class userModel {
         $query->execute(array($role));
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
+
+    function getUserByEmail($email){
+        $query = $this->db->prepare('SELECT * FROM user WHERE email=?');
+        $query->execute(array($email));
+        return $query->fetchAll(PDO::FETCH_OBJ);
+    }
 }

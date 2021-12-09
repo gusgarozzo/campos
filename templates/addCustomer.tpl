@@ -26,7 +26,7 @@
                                     <label class="col-form-label mt-4" for="inputDefault">Categoría</label>
                                         <select name="category">
                                         {if $categories eq null}
-                                            <option>Agregue una categoría...</option>
+                                            <option>Agregue una categoría</option>
                                         {else}
                                             {foreach from=$categories item=category}
                                                 <option value="{$category->id_customer_category}">{$category->category_name}</option>

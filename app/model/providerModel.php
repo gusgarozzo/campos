@@ -30,10 +30,10 @@ class providerModel {
         return $query->rowCount();
     }
     
-    function addProviderBill($payment_method_id, $provider_id, $user_id, $date, $status, $comment){
-        $query = $this->db->prepare('INSERT INTO provider_payment(`id_payment_method`, `id_provider`, `id_user`. 
-            `date`, `payment_status`, `comment`) VALUES (?,?,?,?,?,?)');
-        $query->execute(array($payment_method_id, $provider_id, $user_id, $date, $status, $comment));
+    function addProviderBill($user_id, $provider_id, $number, $date, $status, $comment){
+        $query = $this->db->prepare('INSERT INTO provider_bill(`id_user`, `id_provider`, `bill_number`,
+            `date`, `payment_status`, `detail`) VALUES (?,?,?,?,?,?)');
+        $query->execute(array($user_id, $provider_id, $number, $date, $status, $comment));
         return $query->rowCount();
     }
 
@@ -92,6 +92,30 @@ class providerModel {
         return $query->rowCount();
     }
 
+    function disableProduct($id){
+        $query = $this->db->prepare('UPDATE provider_product SET status=0 WHERE id_provider_product=? AND status = 1');
+        $query->execute(array($id));
+        return $query->rowCount();
+    }
+
+    function enableProduct($id){
+        $query = $this->db->prepare('UPDATE provider_product SET status=1 WHERE id_provider_product=? AND status = 0');
+        $query->execute(array($id));
+        return $query->rowCount();
+    }
+
+    function setProviderProductStock($stock, $minStock, $id){
+        $query = $this->db->prepare('UPDATE provider_product SET `stock`=?, `min_stock`=? WHERE id_provider_product=?');
+        $query->execute(array($stock, $minStock, $id));
+        return $query->rowCount();
+    }
+
+    function payBill($id){
+        $query = $this->db->prepare('UPDATE `provider_bill` SET `payment_status`=1 WHERE `id_provider_bill`=? AND `payment_status`=0');
+        $query->execute(array($id));
+        return $query->rowCount();
+    }
+
     
     // GENERAL SELECTS
     function getCategory(){
@@ -113,7 +137,7 @@ class providerModel {
     }
 
     function getProviderBill(){
-        $query = $this->db->prepare('SELECT * FROM provider_bill p ORDER BY p.date ASC');
+        $query = $this->db->prepare('SELECT * FROM `provider_bill` b INNER JOIN `provider` p ON b.id_provider = p.id_provider ORDER BY b.date ASC');
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
@@ -130,7 +154,6 @@ class providerModel {
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
-
     
     // SELECTS BY ID
     function getCategoryByID($id){
@@ -192,6 +215,27 @@ class providerModel {
         $query = $this->db->prepare("SELECT pp.name, pp.email, pp.phone, pp.address, pp.city, pp.comment 
             FROM provider_product p INNER JOIN provider pp ON p.id_provider = pp.id_provider WHERE p.product_name LIKE '%$name%'");
         $query->execute(array($name));
+        return $query->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    function getProviderBillByNumber($number){
+        $query = $this->db->prepare("SELECT * FROM `provider_bill` b INNER JOIN `provider` p ON b.id_provider = p.id_provider 
+            WHERE bill_number LIKE '%$number%'");
+        $query->execute(array($number));
+        return $query->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    function getProviderBillByDate($date){
+        $query = $this->db->prepare("SELECT * FROM `provider_bill` b INNER JOIN `provider` p ON b.id_provider = p.id_provider 
+            WHERE `date` LIKE '%$date%'");
+        $query->execute(array($date));
+        return $query->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    function getBillsByProvider($provider){
+        $query = $this->db->prepare('SELECT * FROM `provider_bill` b INNER JOIN `provider` p ON b.id_provider = p.id_provider 
+            WHERE b.id_provider=?');
+        $query->execute(array($provider));
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
 }

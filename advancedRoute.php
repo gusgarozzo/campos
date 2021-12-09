@@ -1,5 +1,6 @@
 <?php
     require_once 'app/controller/controller.php';
+    require_once 'app/controller/loginController.php';
     require_once 'RouterClass.php';
 
     define("BASE_URL", 'http://'.$_SERVER["SERVER_NAME"].':'.$_SERVER["SERVER_PORT"].dirname($_SERVER["PHP_SELF"]).'/');
@@ -29,18 +30,36 @@
     $r->addRoute("disableUser", "GET", "controller", "disableUser");
     $r->addRoute("stock", "GET", "controller", "stockController");
 
-    // PROVEEDORES
+    // PROVIDERS
     $r->addRoute("proveedores", "GET", "controller", "providersController");
     $r->addRoute("newProvider", "POST", "controller", "addProvider");
     $r->addRoute("providerFilterByName", "GET", "controller", "providerFilterByName");
     $r->addRoute("providerFilterByProduct", "GET", "controller", "providerFilterByProduct");
     $r->addRoute("newProviderCategory", "POST", "controller", "addProviderCategory");
     $r->addRoute("newProduct", "POST", "controller", "newProduct");
+    $r->addRoute("disableProduct", "GET", "controller", "disableProduct");
+    $r->addRoute("enableProduct", "GET", "controller", "enableProduct");
+    $r->addRoute("setProvProdStock", "GET", "controller", "productStockController");
+    $r->addRoute("setStock", "POST", "controller", "setStockProduct");
+    $r->addRoute("newBill", "POST", "controller", "providerBillController");
+    $r->addRoute("getBillsByProvider", "GET", "controller", "getProvidersBills");
+    $r->addRoute("getBills", "GET", "controller", "billsController");
+    $r->addRoute("billsFilterByNumber", "GET", "controller", "searchBillsByNumber");
+    $r->addRoute("billsFilterByDate", "GET", "controller", "searchBillsByDate");
+    $r->addRoute("payBill", "GET", "controller", "markBillAsPayed");
+    
 
-    // CLIENTES
+    // CUSTOMERS
     $r->addRoute("clientes", "GET", "controller", "customerController");
     $r->addRoute("newCustomer", "POST", "controller", "addCustomer");
     $r->addRoute("newCustomerCategory", "POST", "controller", "addCustomerCategory");
+    $r->addRoute("enableCustomer", "GET", "controller", "enableCustomer");
+    $r->addRoute("disableCustomer", "GET", "controller", "disableCustomer");
+
+    // SESSION
+    $r->addRoute("login", "GET", "loginController", "userLogin");
+    $r->addRoute("logout", "GET", "loginController", "userLogout");
+    $r->addRoute("verifyUser", "POST", "loginController", "verifyUser");
 
     //DEFAULT
     $r->setDefaultRoute("controller", "dashboardController");

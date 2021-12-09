@@ -10,8 +10,15 @@ class View {
     public function __construct() {
         $this->smarty = new Smarty();
         $this->dashboardTitle = "CS | Dashboard";
+        $this->providerTitle = "CS | Proveedores";
+        $this->factoryTitle = "CS | Planta";
+        $this->customerTitle = "CS | Clientes";
+        $this->stockTitle = "CS | Stock";
+        $this->admTitle = "CS | Administración";
         $this->title = "CampoSystem";
         $this->errorTitle = "Error";
+        $this->loginTitle = "CS | Login";
+        $this->billsTitle = "CS | Facturas de Proveedores";
     }
 
     /*----------------DASHBOARD----------------*/
@@ -34,16 +41,18 @@ class View {
     }
 
     function renderProvidersPanel($providers){
-        $this->smarty->assign('title', $this->title);
+        $this->smarty->assign('title', $this->providerTitle);
         $this->smarty->assign('providers', $providers);
         $this->smarty->display('./templates/admProviders.tpl');
     }
 
     function renderCustomersPanel($customers, $categories){
+        $this->example = "Comercio";
         $this->newCategory = "newCustomerCategory";
-        $this->smarty->assign('title', $this->title);
+        $this->smarty->assign('title', $this->customerTitle);
         $this->smarty->assign('customers', $customers);
         $this->smarty->assign('categories', $categories);
+        $this->smarty->assign('example', $this->example);
         $this->smarty->assign('newCategory', $this->newCategory);
         $this->smarty->display('./templates/admCustomers.tpl');
     }
@@ -73,11 +82,31 @@ class View {
 
     function renderStockPanel($products, $categories, $providers){
         $this->newCategory = "newProviderCategory";
-        $this->smarty->assign('title', $this->title);
+        $this->example = "Limpieza";
+        $this->smarty->assign('title', $this->providerTitle);
         $this->smarty->assign('products', $products);
         $this->smarty->assign('providers', $providers);
         $this->smarty->assign('categories', $categories);
         $this->smarty->assign('newCategory', $this->newCategory);
-        $this->smarty->display('./templates/admStock.tpl');
+        $this->smarty->assign('example', $this->example);
+        $this->smarty->display('./templates/admProviderProducts.tpl');
+    }
+
+    function updateStockPanel($product){
+        $this->smarty->assign('title', $this->stockTitle);
+        $this->smarty->assign('product', $product);
+        $this->smarty->display('./templates/setProvStockPanel.tpl');
+    }
+
+    function renderLogin($message = "") {
+        $this->smarty->assign('title', $this->loginTitle);
+        $this->smarty->assign('message', $message);
+        $this->smarty->display('./templates/login.tpl');
+    }
+
+    function renderBillPanel($bills){
+        $this->smarty->assign('title', $this->billsTitle);
+        $this->smarty->assign('bills', $bills);
+        $this->smarty->display('./templates/billsPanel.tpl');
     }
 }

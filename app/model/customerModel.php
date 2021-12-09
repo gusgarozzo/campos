@@ -60,6 +60,18 @@ class customerModel {
         return true;
     }
 
+    function disableCustomer($id_customer){
+        $query = $this->db->prepare('UPDATE customer SET customer_status=0 WHERE id_customer=? AND customer_status=1');
+        $query->execute(array($id_customer));
+        return $query->rowCount();
+    }
+
+    function enableCustomer($id_customer){
+        $query = $this->db->prepare('UPDATE customer SET customer_status=1 WHERE id_customer=? AND customer_status=0');
+        $query->execute(array($id_customer));
+        return $query->rowCount();
+    }
+
     // GENERAL SELECTS
     function getCustomers(){
         $query = $this->db->prepare('SELECT * FROM customer c INNER JOIN customer_category cu ON c.id_customer_category = cu.id_customer_category
@@ -107,6 +119,12 @@ class customerModel {
 
     function getCustomerAccountByID($id){
         $query = $this->db->prepare('SELECT * FROM customer_account c WHERE id_customer_account=?');
+        $query->execute(array($id));
+        return $query->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    function getStatusByID($id){
+        $query = $this->db->prepare('SELECT customer_status FROM customer c WHERE id_customer=?');
         $query->execute(array($id));
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
